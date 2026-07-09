@@ -1,0 +1,25 @@
+---
+layout: default
+---
+<div class="sessions-wrap" style="max-width: 700px; margin: 0 auto;">
+  <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--steel); margin-bottom: 0.3rem;">
+    {{ page.date | date: "%d %b %Y" }} · {{ page.duration }}
+  </p>
+  <h1 style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); margin: 0 0 1rem;">
+    {{ page.title }}
+  </h1>
+
+  {% if page.moves_practiced %}
+  <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+    {% for m in page.moves_practiced %}
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; border: 1px solid var(--steel); border-radius: 999px; padding: 0.3rem 0.7rem;">
+        {{ m }}
+      </span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div style="font-family: 'Work Sans', sans-serif; line-height: 1.7; font-size: 1.05rem;">
+    {{ content }}
+  </div>
+</div>

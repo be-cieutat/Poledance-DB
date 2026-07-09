@@ -1,0 +1,10 @@
+main:
+  - title: "Home"
+    url: /
+  - title: "Sessions"
+    url: /sessions
+  - title: "Moves"
+    url: /moves
+  - title: "Inscriptions"
+    url: https://pole.bds.ens.fr
+    target: _blank

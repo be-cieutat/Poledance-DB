@@ -1,0 +1,175 @@
+---
+layout: default
+---
+<style>
+  .home {
+    --ink: #14120F;
+    --chalk: #F1EDE4;
+    --brass: #C8A15C;
+    --spot: #E8447A;
+    --steel: #78746C;
+    background: var(--ink);
+    color: var(--chalk);
+  }
+  .home-hero {
+    padding: 5rem 6vw 3rem;
+    border-bottom: 1px solid rgba(241,237,228,0.08);
+  }
+  .home-hero h1 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .home-hero p {
+    font-family: "Work Sans", sans-serif;
+    color: var(--steel);
+    font-size: 1.05rem;
+    max-width: 50ch;
+    margin-top: 0.75rem;
+  }
+
+  .home-section {
+    padding: 3rem 6vw;
+  }
+  .home-section + .home-section {
+    border-top: 1px solid rgba(241,237,228,0.08);
+  }
+  .home-section__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .home-section__head h2 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .home-section__head a {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--brass);
+    text-decoration: none;
+  }
+  .home-section__head a:hover { text-decoration: underline; }
+
+  /* Sessions list */
+  .session-list {
+    list-style: none;
+    margin: 0; padding: 0;
+    border-top: 1px solid rgba(241,237,228,0.08);
+  }
+  .session-row {
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    gap: 1.2rem;
+    align-items: baseline;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(241,237,228,0.08);
+    text-decoration: none;
+    color: var(--chalk);
+  }
+  .session-row:hover .session-row__title { color: var(--brass); }
+  .session-row__date {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.75rem;
+    color: var(--steel);
+  }
+  .session-row__title {
+    font-family: "Work Sans", sans-serif;
+    font-weight: 500;
+    transition: color 0.15s ease;
+  }
+  .session-row__duration {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem;
+    color: var(--spot);
+  }
+
+  /* Moves kiosk preview */
+  .kiosk-preview {
+    column-count: 4;
+    column-gap: 1rem;
+  }
+  @media (max-width: 1100px) { .kiosk-preview { column-count: 3; } }
+  @media (max-width: 760px)  { .kiosk-preview { column-count: 2; } }
+  @media (max-width: 480px)  { .kiosk-preview { column-count: 1; } }
+
+  .kiosk-card {
+    display: block;
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    text-decoration: none;
+    background: #1c1a16;
+    border: 1px solid rgba(241,237,228,0.06);
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+  .kiosk-card:hover { transform: translateY(-3px); border-color: var(--brass); }
+  .kiosk-card img { width: 100%; display: block; }
+  .kiosk-card__overlay {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 0.8rem 0.8rem 0.6rem;
+    background: linear-gradient(to top, rgba(20,18,15,0.92), transparent);
+  }
+  .kiosk-card__title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin: 0;
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<div class="home">
+
+  <header class="home-hero">
+    <h1>Pole Log</h1>
+    <p>A running record of sessions and tricks — what's been trained, and what's been learned.</p>
+  </header>
+
+  <section class="home-section">
+    <div class="home-section__head">
+      <h2>Sessions</h2>
+      <a href="{{ '/sessions/' | relative_url }}">All sessions →</a>
+    </div>
+    <ul class="session-list">
+      {% assign sorted_sessions = site.sessions | sort: "date" | reverse %}
+      {% for session in sorted_sessions limit: 8 %}
+        <a class="session-row" href="{{ session.url | relative_url }}">
+          <span class="session-row__date">{{ session.date | date: "%d %b %Y" }}</span>
+          <span class="session-row__title">{{ session.title }}</span>
+          <span class="session-row__duration">{{ session.duration }}</span>
+        </a>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="home-section">
+    <div class="home-section__head">
+      <h2>Moves playbook</h2>
+      <a href="{{ '/moves/' | relative_url }}">Full playbook →</a>
+    </div>
+    <div class="kiosk-preview">
+      {% assign sorted_moves = site.moves | sort: "date_learned" | reverse %}
+      {% for move in sorted_moves limit: 8 %}
+        <a class="kiosk-card" href="{{ move.url | relative_url }}">
+          <img src="{{ move.hero_image | relative_url }}" alt="{{ move.title }}" loading="lazy">
+          <div class="kiosk-card__overlay">
+            <h3 class="kiosk-card__title">{{ move.title }}</h3>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+
+</div>

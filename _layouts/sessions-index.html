@@ -1,0 +1,90 @@
+---
+layout: default
+---
+<style>
+  .sessions-wrap {
+    --ink: #14120F;
+    --chalk: #F1EDE4;
+    --brass: #C8A15C;
+    --spot: #E8447A;
+    --steel: #78746C;
+    background: var(--ink);
+    color: var(--chalk);
+    padding: 2.5rem 6vw 4rem;
+  }
+  .sessions-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    letter-spacing: 0.02em;
+    margin: 0 0 0.4rem;
+  }
+  .sessions-sub {
+    font-family: "Work Sans", sans-serif;
+    color: var(--steel);
+    margin: 0 0 2rem;
+  }
+
+  .session-list {
+    list-style: none;
+    margin: 0; padding: 0;
+    border-top: 1px solid rgba(241,237,228,0.08);
+  }
+  .session-row {
+    display: grid;
+    grid-template-columns: 120px 1fr auto auto;
+    gap: 1.2rem;
+    align-items: baseline;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid rgba(241,237,228,0.08);
+    text-decoration: none;
+    color: var(--chalk);
+  }
+  .session-row:hover .session-row__title { color: var(--brass); }
+  .session-row__date {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.75rem;
+    color: var(--steel);
+  }
+  .session-row__title {
+    font-family: "Work Sans", sans-serif;
+    font-weight: 500;
+    font-size: 1.05rem;
+    transition: color 0.15s ease;
+  }
+  .session-row__moves {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem;
+    color: var(--steel);
+    text-transform: uppercase;
+  }
+  .session-row__duration {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem;
+    color: var(--spot);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .session-row { grid-template-columns: 1fr; gap: 0.3rem; }
+    .session-row__duration { order: -1; }
+  }
+</style>
+
+<div class="sessions-wrap">
+  <h1 class="sessions-title">Sessions</h1>
+  <p class="sessions-sub">Every practice, logged.</p>
+
+  <ul class="session-list">
+    {% assign sorted_sessions = site.sessions | sort: "date" | reverse %}
+    {% for session in sorted_sessions %}
+      <a class="session-row" href="{{ session.url | relative_url }}">
+        <span class="session-row__date">{{ session.date | date: "%d %b %Y" }}</span>
+        <span class="session-row__title">{{ session.title }}</span>
+        <span class="session-row__moves">
+          {% if session.moves_practiced %}{{ session.moves_practiced | join: " · " }}{% endif %}
+        </span>
+        <span class="session-row__duration">{{ session.duration }}</span>
+      </a>
+    {% endfor %}
+  </ul>
+</div>

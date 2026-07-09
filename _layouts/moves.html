@@ -1,0 +1,72 @@
+---
+layout: default
+---
+<article class="move">
+
+  <header class="move-hero" style="background-image: url('{{ page.hero_image | relative_url }}');">
+    <div class="move-hero__scrim"></div>
+
+    <div class="move-hero__gauge" aria-hidden="true">
+      {% for i in (1..5) reversed %}
+        <span class="tick {% if i <= page.difficulty_level %}tick--filled{% endif %}"></span>
+      {% endfor %}
+    </div>
+
+    <h1 class="move-hero__title">{{ page.title }}</h1>
+  </header>
+
+  <div class="move-tags">
+    <span class="tag">{{ page.category }}</span>
+    <span class="tag tag--spot">{{ page.difficulty_label }}</span>
+    <span class="tag">{{ page.grip }}</span>
+    <span class="move-tags__date">learned {{ page.date_learned | date: "%-d %b %Y" }}</span>
+  </div>
+
+  <div class="move-body">
+    <aside class="move-spine">
+      <div class="spine-line"></div>
+      <dl class="spine-stats">
+        <div class="spine-stat">
+          <dt>Entry</dt>
+          <dd>{{ page.entry }}</dd>
+        </div>
+        <div class="spine-stat">
+          <dt>Grip</dt>
+          <dd>{{ page.grip }}</dd>
+        </div>
+        <div class="spine-stat">
+          <dt>Level</dt>
+          <dd>{{ page.difficulty_level }} / 5</dd>
+        </div>
+      </dl>
+    </aside>
+
+    <div class="move-description">
+      {{ content }}
+    </div>
+  </div>
+
+  {% if page.images or page.videos %}
+  <section class="move-kiosk">
+    <h2 class="move-kiosk__label">Footage</h2>
+    <div class="kiosk-grid">
+      {% assign frame = 0 %}
+      {% for img in page.images %}
+        {% assign frame = frame | plus: 1 %}
+        <figure class="kiosk-frame">
+          <span class="kiosk-frame__number">F{{ frame | prepend: '00' | slice: -2, 2 }}</span>
+          <img src="{{ img | relative_url }}" alt="{{ page.title }}">
+        </figure>
+      {% endfor %}
+      {% for vid in page.videos %}
+        {% assign frame = frame | plus: 1 %}
+        <figure class="kiosk-frame kiosk-frame--video">
+          <span class="kiosk-frame__number">F{{ frame | prepend: '00' | slice: -2, 2 }}</span>
+          <video controls src="{{ vid | relative_url }}"></video>
+        </figure>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+</article>
