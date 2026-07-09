@@ -1,25 +1,99 @@
 ---
 layout: default
 ---
-<div class="sessions-wrap" style="max-width: 700px; margin: 0 auto;">
-  <p style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--steel); margin-bottom: 0.3rem;">
-    {{ page.date | date: "%d %b %Y" }} · {{ page.duration }}
-  </p>
-  <h1 style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); margin: 0 0 1rem;">
-    {{ page.title }}
-  </h1>
+<style>
+  .session-page {
+    background: #14120F;
+  }
+  .session-detail {
+    --ink: #14120F;
+    --chalk: #F1EDE4;
+    --brass: #C8A15C;
+    --spot: #E8447A;
+    --steel: #78746C;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2.5rem 6vw 4rem;
+    color: var(--chalk);
+  }
+  .session-detail__meta {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.75rem;
+    color: var(--steel);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.3rem;
+  }
+  .session-detail__title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    letter-spacing: 0.02em;
+    margin: 0 0 1rem;
+  }
+  .session-detail__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .session-detail__tags span {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border: 1px solid var(--steel);
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem;
+  }
+  .session-detail__body {
+    font-family: "Work Sans", sans-serif;
+    line-height: 1.7;
+    font-size: 1.02rem;
+  }
+  .session-detail__body h3 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.02em;
+    color: var(--brass);
+    margin: 2rem 0 0.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(241,237,228,0.08);
+  }
+  .session-detail__body h3:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+  .session-detail__body p {
+    margin: 0 0 0.9rem;
+    color: var(--chalk);
+  }
+  .session-detail__body strong {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--spot);
+  }
+</style>
 
-  {% if page.moves_practiced %}
-  <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
-    {% for m in page.moves_practiced %}
-      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; border: 1px solid var(--steel); border-radius: 999px; padding: 0.3rem 0.7rem;">
-        {{ m }}
-      </span>
-    {% endfor %}
-  </div>
-  {% endif %}
+<div class="session-page">
+  <div class="session-detail">
+    <p class="session-detail__meta">
+      {{ page.date | date: "%d %b %Y" }} · {{ page.duration }}
+    </p>
+    <h1 class="session-detail__title">{{ page.title }}</h1>
 
-  <div style="font-family: 'Work Sans', sans-serif; line-height: 1.7; font-size: 1.05rem;">
-    {{ content }}
+    {% if page.moves_practiced %}
+    <div class="session-detail__tags">
+      {% for m in page.moves_practiced %}
+        <span>{{ m }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="session-detail__body">
+      {{ content }}
+    </div>
   </div>
 </div>

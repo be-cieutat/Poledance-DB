@@ -11,7 +11,7 @@ images:
   - /assets/images/ayesha-twistedgrip.jpg
   - /assets/images/ayesha-2.jpg
 videos:
-  - /assets/videos/ayesha.mp4
+  - https://www.youtube.com/watch?v=-XtpfFNi81U
 ---
 
 Notes on how to enter, common mistakes, progression tips, whatever you want here — this becomes the description block.
