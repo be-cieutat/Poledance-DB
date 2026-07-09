@@ -154,7 +154,7 @@ layout: default
           {% assign frame = frame | plus: 1 %}
             <figure class="kiosk-frame">
               <span class="kiosk-frame__number">F{{ frame | prepend: '00' | slice: -2, 2 }}</span>
-              <a href="{{ img | relative_url }}" class="glightbox" data-gallery="move-gallery">
+                <a href="{{ img | relative_url }}" class="glightbox" data-gallery="move-gallery">
                 <img src="{{ img | relative_url }}" alt="{{ page.title }}">
               </a>
             </figure>
