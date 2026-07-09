@@ -9,14 +9,14 @@ layout: default
     --spot: #E8447A;
     --steel: #78746C;
     background: var(--ink);
-    color: var(--chalk);
     padding: 2.5rem 6vw 4rem;
   }
   .sessions-title {
     font-family: "Bebas Neue", sans-serif;
     font-size: clamp(2.5rem, 6vw, 4.5rem);
-    letter-spacing: 0.02em;
+    color: var(--chalk);
     margin: 0 0 0.4rem;
+    letter-spacing: 0.02em;
   }
   .sessions-sub {
     font-family: "Work Sans", sans-serif;
@@ -70,9 +70,12 @@ layout: default
   }
 </style>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <div class="sessions-wrap">
   <h1 class="sessions-title">Sessions</h1>
-  <p class="sessions-sub">Every practice, logged.</p>
+  <p class="sessions-sub">Prendre des notes pour progresser plus vite.</p>
 
   <ul class="session-list">
     {% assign sorted_sessions = site.sessions | sort: "date" | reverse %}

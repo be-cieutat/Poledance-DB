@@ -1,4 +1,19 @@
 ---
+title: "Ballerina"
+hero_image: /assets/images/ayesha-twistedgrip.jpg
+category: "Spin"
+difficulty_label: "D+"
+date_learned: 2026-06-15
+images:
+  - /assets/images/ayesha-twistedgrip.jpg
+videos:
+  - /assets/videos/ayesha.mp4
+---
+
+Notes on how to enter, common mistakes, progression tips, whatever you want here — this becomes the description block.
+
+
+---
 Difficulty: Beginner+
 Mastered: 🟢⚪⚪⚪⚪
 Type: Spin
