@@ -3,6 +3,8 @@ layout: default
 ---
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 
 <style>
   .move {
@@ -118,20 +120,20 @@ layout: default
           <dd>{{ page.date_learned | date: "%-d %b %Y" }}</dd>
         </div>
         {% if page.unlocked %}
+        {% if site.progress_users %}
         <div class="spine-stat">
           <dt>Unlocked by</dt>
-          <ul class="unlocked-list">
-            {% assign people = page.unlocked | split: "," %}
-            {% for person in people %}
-              {% assign trimmed = person | strip %}
-              {% if trimmed contains "✔️" %}
-                <li class="done">✔️ {{ trimmed | remove: "✔️" | strip }}</li>
+          <ul class="progress_users">
+            {% for person in site.progress_users %}
+              {% if page.unlocked contains person %}
+                <li class="done">✔️ {{ person }}</li>
               {% else %}
-                <li class="pending">✖️ {{ trimmed | remove: "✖️" | strip }}</li>
+                <li class="pending">✖️ {{ person }}</li>
               {% endif %}
             {% endfor %}
           </ul>
         </div>
+        {% endif %}
         {% endif %}
       </dl>
     </aside>
@@ -146,15 +148,17 @@ layout: default
     <h2 class="move-kiosk__label">Images  </h2>
     <div class="kiosk-grid">
       {% assign frame = 0 %}
-      {% for img in page.images %}
-        {% assign frame = frame | plus: 1 %}
-        <figure class="kiosk-frame">
-          <span class="kiosk-frame__number">F{{ frame | prepend: '00' | slice: -2, 2 }}</span>
-          <img src="{{ img | relative_url }}" alt="{{ page.title }}">
-        </figure>
-      {% endfor %}
+        {% for img in page.images %}
+          {% assign frame = frame | plus: 1 %}
+            <figure class="kiosk-frame">
+              <span class="kiosk-frame__number">F{{ frame | prepend: '00' | slice: -2, 2 }}</span>
+              <a href="{{ img | relative_url }}" class="glightbox" data-gallery="move-gallery">
+                <img src="{{ img | relative_url }}" alt="{{ page.title }}">
+              </a>
+            </figure>
+          {% endfor %}
       {% for vid in page.videos %}
-        {% assign frame = frame | plus: 1 %}
+      {% assign frame = frame | plus: 1 %}
         <figure class="kiosk-frame kiosk-frame--video">
           <span class="kiosk-frame__number">F{{ frame | prepend: '00' | slice: -2, 2 }}</span>
           <video controls src="{{ vid | relative_url }}"></video>
@@ -163,5 +167,7 @@ layout: default
     </div>
   </section>
   {% endif %}
-
+<script>
+    const lightbox = GLightbox({ selector: '.glightbox' });
+</script>
 </article>
