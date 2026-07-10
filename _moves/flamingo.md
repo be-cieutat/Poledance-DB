@@ -1,10 +1,14 @@
 ---
-sticker: emoji//2728
-banner: Unsorted files/Attachments/Pasted image 20260305141955.png
-banner_y: "33"
-Difficulty: Beginner
-Mastered: 🟢🟢🟢🟢⚪
-Type: Static & Spin
+title: "Flamingo"
+category: "Flamingo"
+difficulty_label: "Débutant"
+date_learned: 2026-04-10
+unlocked: 
+  - Morgane
+  - Vicky 
+hero_image: /assets/images/hero-placeholder.jpg
+images:
+videos:
 ---
 - Version facile: Figurehead
 ![[Pasted image 20260305142143.png]]

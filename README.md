@@ -3,6 +3,15 @@ I've recently started poledance classes, and I was looking for a way to store an
 
 See the latest compiled build here: [Poledance DB](https://be-cieutat.github.io/Poledance-DB/)
 
+## TODO
+ For moves.html, add an 'alternative names' field, an 'entries' field, remove the useless fields, find what to say in the notes section, change the layout.
+
+ For moves-index.html, add tabs that sort the moves by date learned, by difficulty, by type
+
+ For sessions.html, make the moves practiced clickable to get to the corresponding move.
+
+ For sessions-index.html, add a session members field.
+
 ## Structure
 
 Figures can be found inside `_moves/`. Each figure gets its own post, written and stored as a [Markdown](http://daringfireball.net/projects/markdown/basics) file.
