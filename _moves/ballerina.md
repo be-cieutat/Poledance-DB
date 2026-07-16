@@ -14,4 +14,4 @@ images:
 videos:
   - https://www.youtube.com/watch?v=f-bqLxiGMlo
 ---
-Description of the move goes here.
+Debout sur pointe, jambe en arabesque autour de la barre.

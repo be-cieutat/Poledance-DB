@@ -12,4 +12,4 @@ images:
 videos:
   - https://www.youtube.com/watch?v=Lo_hJKfPsoM
 ---
-Description of the move goes here.
+Invert en extension avant, une jambe tenue en grand écart.

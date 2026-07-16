@@ -45,6 +45,21 @@ layout: default
     border-radius: 999px;
     padding: 0.3rem 0.7rem;
   }
+
+  .session-detail__tags a {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border: 1px solid var(--brass);
+    color: var(--brass);
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .session-detail__tags a:hover { background: var(--brass); color: var(--ink); }
+  
   .session-detail__body {
     font-family: "Work Sans", sans-serif;
     line-height: 1.7;
@@ -85,11 +100,16 @@ layout: default
     <h1 class="session-detail__title">{{ page.title }}</h1>
 
     {% if page.moves_practiced %}
-    <div class="session-detail__tags">
-      {% for m in page.moves_practiced %}
-        <span>{{ m }}</span>
-      {% endfor %}
-    </div>
+      <div class="session-detail__tags">
+        {% for m in page.moves_practiced %}
+          {% assign matched = site.moves | where: "title", m | first %}
+          {% if matched %}
+            <a href="{{ matched.url | relative_url }}">{{ m }}</a>
+          {% else %}
+            <span>{{ m }}</span>
+          {% endif %}
+        {% endfor %}
+      </div>
     {% endif %}
 
     <div class="session-detail__body">

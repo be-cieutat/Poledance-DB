@@ -10,4 +10,4 @@ hero_image: /assets/images/hero-placeholder.jpg
 images:
 videos:
 ---
-Description of the move goes here.
+Invert jambes tendues en V. Inversion de base à partir de laquelle enchainer des Outside, Inside 
