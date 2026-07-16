@@ -1,7 +1,7 @@
 ---
 title: "Ballerina"
 category: "Ballerina"
-difficulty_label: "Inter"
+difficulty_label: "Débutant+"
 date_learned: 2026-04-10
 unlocked: 
   - Morgane

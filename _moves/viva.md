@@ -1,7 +1,7 @@
 ---
 title: "Viva"
 category: "Knee hook"
-difficulty_label: "Ini"
+difficulty_label: "Initiation"
 date_learned: 2026-04-11
 unlocked: 
   - Morgane

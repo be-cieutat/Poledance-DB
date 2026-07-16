@@ -1,7 +1,7 @@
 ---
 title: "Simple Sit"
 category: "Sit"
-difficulty_label: "Ini"
+difficulty_label: "Initiation"
 date_learned: 2026-04-10
 unlocked: 
   - Morgane

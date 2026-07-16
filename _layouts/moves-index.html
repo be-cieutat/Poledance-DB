@@ -15,56 +15,100 @@ layout: default
     font-family: "Bebas Neue", sans-serif;
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     color: var(--chalk);
-    margin: 0 0 2rem;
+    margin: 0 0 1.5rem;
     letter-spacing: 0.02em;
   }
-  .moves-grid {
-    column-count: 4;
-    column-gap: 1rem;
+
+  /* Tabs */
+  .moves-tabs {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(241,237,228,0.1);
+    padding-bottom: 1rem;
   }
+  .moves-tab {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--steel); background: none;
+    border: 1px solid var(--steel); border-radius: 999px;
+    padding: 0.45rem 1rem; cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .moves-tab:hover { color: var(--chalk); }
+  .moves-tab.is-active { color: var(--ink); background: var(--brass); border-color: var(--brass); }
+
+  /* Category pills */
+  .moves-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .moves-filter {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.03em;
+    color: var(--steel); background: none;
+    border: 1px solid rgba(241,237,228,0.15); border-radius: 999px;
+    padding: 0.35rem 0.8rem; cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .moves-filter:hover { color: var(--chalk); }
+  .moves-filter.is-active { color: var(--ink); background: var(--spot); border-color: var(--spot); }
+
+  .moves-search { display: none; margin-bottom: 1.5rem; }
+  .moves-search.is-visible { display: block; }
+  .moves-search input {
+    width: 100%; max-width: 420px;
+    font-family: "Work Sans", sans-serif; font-size: 1rem;
+    background: #1c1a16; border: 1px solid var(--steel); border-radius: 6px;
+    color: var(--chalk); padding: 0.7rem 1rem;
+  }
+  .moves-search input:focus { outline: none; border-color: var(--brass); }
+
+  .moves-empty {
+    display: none;
+    font-family: "Work Sans", sans-serif;
+    color: var(--steel);
+    padding: 2rem 0;
+  }
+  .moves-empty.is-visible { display: block; }
+
+  /* Grid */
+  .moves-grid { column-count: 4; column-gap: 1rem; }
   @media (max-width: 1100px) { .moves-grid { column-count: 3; } }
   @media (max-width: 760px)  { .moves-grid { column-count: 2; } }
   @media (max-width: 480px)  { .moves-grid { column-count: 1; } }
 
+  .moves-group-header {
+    column-span: all;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.6rem;
+    color: var(--brass);
+    letter-spacing: 0.02em;
+    margin: 1.5rem 0 0.8rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(241,237,228,0.1);
+  }
+  .moves-grid > .moves-group-header:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
   .move-card {
-    display: block;
-    break-inside: avoid;
-    margin-bottom: 1rem;
-    position: relative;
-    border-radius: 6px;
-    overflow: hidden;
-    text-decoration: none;
-    background: #1c1a16;
+    display: block; break-inside: avoid; margin-bottom: 1rem;
+    position: relative; border-radius: 6px; overflow: hidden;
+    text-decoration: none; background: #1c1a16;
     border: 1px solid rgba(241,237,228,0.06);
     transition: transform 0.18s ease, border-color 0.18s ease;
   }
-  .move-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--brass);
-  }
-  .move-card img {
-    width: 100%;
-    display: block;
-  }
+  .move-card.is-hidden { display: none; }
+  .move-card:hover { transform: translateY(-3px); border-color: var(--brass); }
+  .move-card img { width: 100%; display: block; }
   .move-card__overlay {
     position: absolute; left: 0; right: 0; bottom: 0;
     padding: 0.9rem 0.9rem 0.7rem;
     background: linear-gradient(to top, rgba(20,18,15,0.92), transparent);
   }
   .move-card__title {
-    font-family: "Bebas Neue", sans-serif;
-    font-size: 1.5rem;
-    color: var(--chalk);
-    letter-spacing: 0.02em;
-    line-height: 1;
-    margin: 0 0 0.4rem;
+    font-family: "Bebas Neue", sans-serif; font-size: 1.5rem; color: var(--chalk);
+    letter-spacing: 0.02em; line-height: 1; margin: 0 0 0.4rem;
   }
   .move-card__meta {
     display: flex; gap: 0.4rem; align-items: center;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    font-family: "IBM Plex Mono", monospace; font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.04em;
   }
   .move-card__meta span { color: var(--steel); }
   .move-card__meta .diff { color: var(--spot); }
@@ -75,11 +119,65 @@ layout: default
 
 <div class="moves-wrap">
   <h1 class="moves-title">Moves</h1>
-  <div class="moves-grid">
-    {% assign sorted_moves = site.moves | sort: "date_learned" | reverse %}
-    {% for move in sorted_moves %}
-      <a class="move-card" href="{{ move.url | relative_url }}">
-        <img src="{{ move.hero_image | relative_url }}" alt="{{ move.title }}" loading="lazy">
+
+  <div class="moves-tabs">
+    <button class="moves-tab is-active" data-sort="difficulty">By difficulty</button>
+    <button class="moves-tab" data-sort="date">By date learned</button>
+    <button class="moves-tab" data-sort="alpha">A–Z</button>
+    <button class="moves-tab" data-sort="type">By type</button>
+    <button class="moves-tab" data-sort="search">Search</button>
+  </div>
+
+<div class="moves-filters" id="movesFilters" style="display: none;">
+    <button class="moves-filter is-active" data-category="all">All</button>
+    {% assign categories = site.moves | map: "category" | uniq | sort %}
+    {% for cat in categories %}
+      <button class="moves-filter" data-category="{{ cat | downcase }}">{{ cat }}</button>
+    {% endfor %}
+  </div>
+
+  <div class="moves-search" id="movesSearch">
+    <input type="text" id="movesSearchInput" placeholder="Type a move name…" autocomplete="off">
+  </div>
+  <p class="moves-empty" id="movesEmpty">No moves match.</p>
+
+  <div class="moves-grid" id="movesGrid">
+    {% assign diff_order = "Initiation:0|Débutant:1|Débutant+:2|Intermédiaire:3|Avancé:4" | split: "|" %}
+    {% assign month_names = "01:Janvier|02:Février|03:Mars|04:Avril|05:Mai|06:Juin|07:Juillet|08:Août|09:Septembre|10:Octobre|11:Novembre|12:Décembre" | split: "|" %}
+
+    {% for move in site.moves %}
+      {% assign difficulty_order = 99 %}
+      {% for pair in diff_order %}
+        {% assign parts = pair | split: ":" %}
+        {% if parts[0] == move.difficulty_label %}{% assign difficulty_order = parts[1] %}{% endif %}
+      {% endfor %}
+
+      {% assign month_num = move.date_learned | date: "%m" %}
+      {% assign month_year = move.date_learned | date: "%Y" %}
+      {% assign month_name = month_num %}
+      {% for pair in month_names %}
+        {% assign parts = pair | split: ":" %}
+        {% if parts[0] == month_num %}{% assign month_name = parts[1] %}{% endif %}
+      {% endfor %}
+
+      {% assign initial = move.title | slice: 0, 1 | upcase %}
+
+      <a class="move-card"
+         href="{{ move.url | relative_url }}"
+         data-title="{{ move.title | downcase }}"
+         data-category="{{ move.category | downcase }}"
+         data-category-label="{{ move.category }}"
+         data-difficulty-order="{{ difficulty_order }}"
+         data-difficulty-label="{{ move.difficulty_label }}"
+         data-date="{{ move.date_learned | date: '%s' }}"
+         data-month-key="{{ move.date_learned | date: '%Y%m' }}"
+         data-month-label="{{ month_name }} {{ month_year }}"
+         data-letter="{{ initial }}">
+        {% if move.hero_image %}
+          <img src="{{ move.hero_image | relative_url }}" alt="{{ move.title }}" loading="lazy">
+        {% else %}
+          <img src="{{ '/assets/images/hero-placeholder.jpg' | relative_url }}" alt="{{ move.title }}" loading="lazy">
+        {% endif %}
         <div class="move-card__overlay">
           <h2 class="move-card__title">{{ move.title }}</h2>
           <div class="move-card__meta">
@@ -92,3 +190,134 @@ layout: default
     {% endfor %}
   </div>
 </div>
+
+<script>
+(function() {
+  const grid = document.getElementById('movesGrid');
+  const cards = Array.from(grid.querySelectorAll('.move-card'));
+  const tabs = document.querySelectorAll('.moves-tab');
+  const filters = document.querySelectorAll('.moves-filter');
+  const movesFilters = document.getElementById('movesFilters');
+  const searchBox = document.getElementById('movesSearch');
+  const searchInput = document.getElementById('movesSearchInput');
+  const emptyMsg = document.getElementById('movesEmpty');
+
+  let activeMode = 'difficulty';
+  let activeCategory = 'all';
+  let activeQuery = '';
+
+  function clearHeaders() {
+    grid.querySelectorAll('.moves-group-header').forEach(h => h.remove());
+  }
+
+  function visibleCards() {
+    return cards.filter(card => {
+      const matchesCategory = activeCategory === 'all' || card.dataset.category === activeCategory;
+      const matchesQuery = card.dataset.title.includes(activeQuery.toLowerCase());
+      return matchesCategory && matchesQuery;
+    });
+  }
+
+  function render() {
+    clearHeaders();
+    const visible = visibleCards();
+    const hidden = cards.filter(c => !visible.includes(c));
+
+    hidden.forEach(c => c.classList.add('is-hidden'));
+    visible.forEach(c => c.classList.remove('is-hidden'));
+
+    emptyMsg.classList.toggle('is-visible', visible.length === 0);
+
+if (activeMode === 'search' || activeMode === 'alpha') {
+      // flat list, no grouping, just sorted alphabetically
+      visible.sort((a, b) => a.dataset.title.localeCompare(b.dataset.title));
+      visible.forEach(c => grid.appendChild(c));
+      hidden.forEach(c => grid.appendChild(c));
+      return;
+    }
+
+    let groupKeyFn, groupLabelFn, groupSortFn, withinGroupSortFn;
+
+    if (activeMode === 'difficulty') {
+      groupKeyFn = c => c.dataset.difficultyLabel;
+      groupLabelFn = c => c.dataset.difficultyLabel;
+      groupSortFn = (a, b) => a[1][0].dataset.difficultyOrder - b[1][0].dataset.difficultyOrder;
+      withinGroupSortFn = (a, b) => a.dataset.title.localeCompare(b.dataset.title);
+    } else if (activeMode === 'date') {
+      groupKeyFn = c => c.dataset.monthKey;
+      groupLabelFn = c => c.dataset.monthLabel;
+      groupSortFn = (a, b) => b[0].localeCompare(a[0]); // newest month first
+      withinGroupSortFn = (a, b) => b.dataset.date - a.dataset.date;
+    } else if (activeMode === 'type') {
+      groupKeyFn = c => c.dataset.categoryLabel;
+      groupLabelFn = c => c.dataset.categoryLabel;
+      groupSortFn = (a, b) => a[0].localeCompare(b[0]);
+      withinGroupSortFn = (a, b) => a.dataset.title.localeCompare(b.dataset.title);
+    }
+
+    const groups = {};
+    visible.forEach(card => {
+      const key = groupKeyFn(card);
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(card);
+    });
+
+    const orderedGroups = Object.entries(groups).sort(groupSortFn);
+
+    orderedGroups.forEach(([key, groupCards]) => {
+      const header = document.createElement('div');
+      header.className = 'moves-group-header';
+      header.textContent = groupLabelFn(groupCards[0]);
+      grid.appendChild(header);
+      groupCards.sort(withinGroupSortFn).forEach(c => grid.appendChild(c));
+    });
+
+    hidden.forEach(c => grid.appendChild(c));
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      activeMode = tab.dataset.sort;
+
+      if (activeMode === 'search') {
+        searchBox.classList.add('is-visible');
+        searchInput.value = '';
+        activeQuery = '';
+        searchInput.focus();
+      } else {
+        searchBox.classList.remove('is-visible');
+      }
+
+      // Category pills only relevant on the "type" tab
+      if (activeMode === 'type') {
+        movesFilters.style.display = 'flex';
+      } else {
+        movesFilters.style.display = 'none';
+        activeCategory = 'all';
+        filters.forEach(f => f.classList.remove('is-active'));
+        document.querySelector('.moves-filter[data-category="all"]').classList.add('is-active');
+      }
+
+      render();
+    });
+  });
+
+  filters.forEach(filter => {
+    filter.addEventListener('click', () => {
+      filters.forEach(f => f.classList.remove('is-active'));
+      filter.classList.add('is-active');
+      activeCategory = filter.dataset.category;
+      render();
+    });
+  });
+
+  searchInput.addEventListener('input', (e) => {
+    activeQuery = e.target.value;
+    render();
+  });
+
+  render();
+})();
+</script>

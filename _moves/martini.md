@@ -1,7 +1,7 @@
 ---
 title: "Martini"
 category: "Sit"
-difficulty_label: "Débutant"
+difficulty_label: "Initiation"
 date_learned: 2026-04-10
 unlocked: 
   - Morgane

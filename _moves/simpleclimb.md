@@ -1,7 +1,7 @@
 ---
 title: "Simple Pole Climb"
 category: "Climb"
-difficulty_label: "Inter"
+difficulty_label: "Initiation"
 date_learned: 2026-04-10
 unlocked: 
   - Morgane

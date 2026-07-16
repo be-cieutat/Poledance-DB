@@ -1,7 +1,7 @@
 ---
 title: "Hook"
 category: "Hook"
-difficulty_label: "Ini"
+difficulty_label: "Initiation"
 date_learned: 2026-02-10
 unlocked: 
   - Morgane

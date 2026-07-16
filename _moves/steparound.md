@@ -1,7 +1,7 @@
 ---
 title: "Step Around Spin"
 category: "Spin"
-difficulty_label: "Inis"
+difficulty_label: "Initiation"
 date_learned: 2026-04-10
 unlocked: 
   - Morgane

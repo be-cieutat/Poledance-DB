@@ -1,7 +1,7 @@
 ---
 title: "Stargazer"
 category: "Knee hook"
-difficulty_label: "D+"
+difficulty_label: "Débutant+"
 date_learned: 2026-04-11
 unlocked: 
   - Morgane

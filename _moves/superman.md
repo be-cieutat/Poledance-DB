@@ -1,6 +1,6 @@
 ---
 title: "Superman"
-category: "Knee Hook"
+category: "Knee hook"
 difficulty_label: "Inter"
 date_learned: 2026-04-10
 unlocked: 
